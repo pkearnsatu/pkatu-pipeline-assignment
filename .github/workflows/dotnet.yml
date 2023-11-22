@@ -78,6 +78,10 @@ jobs:
         unzip chromedriver_linux64.zip
         sudo mv chromedriver /usr/local/bin/
         sudo chmod +x /usr/local/bin/chromedriver
+    - name: Check current directory
+      run: pwd
 
+    - name: List files in the current directory
+      run: ls -l
     - name: Run Selenium Tests
       run: selenium-side-runner ./pkatu-pipeline-assignment.side
