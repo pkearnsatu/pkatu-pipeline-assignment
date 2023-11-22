@@ -7,7 +7,7 @@ EXPOSE 443
 
 FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
 WORKDIR /src
-COPY ["pkatu-pipeline-assignment/pkatu-pipeline-assignment.csproj", "pkatu-pipeline-assignment/"]
+COPY ["./pkatu-pipeline-assignment.csproj", "./"]
 RUN dotnet restore "pkatu-pipeline-assignment/pkatu-pipeline-assignment.csproj"
 COPY . .
 WORKDIR "/src/pkatu-pipeline-assignment"
