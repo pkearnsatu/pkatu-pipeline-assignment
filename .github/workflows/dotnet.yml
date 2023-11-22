@@ -90,7 +90,13 @@ jobs:
 
 
 
-    - name: List files in the current directory
-      run: ls -l ${{ github.workspace }}
+    - name: Check Selenium Server availability
+      run: |
+        until curl -s http://selenium-server:4444/wd/hub/status | grep -q '"ready":true'; do
+        echo "Waiting for Selenium server..."
+        sleep 5
+        done
+        echo "Selenium server is up and running."
+
     - name: Run Selenium Tests
       run: selenium-side-runner --server http://selenium-server:4444/wd/hub --capabilities browserName=chrome,goog:chromeOptions.args=[--headless,--disable-gpu,--window-size=1920x1080] ./pkatu-pipeline-assignment/pkatu-pipeline-assignment.side
