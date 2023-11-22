@@ -1,10 +1,12 @@
 ﻿@page
+@using pkatu_pipeline_assignment.Services
 @model IndexModel
 @{
     ViewData["Title"] = "Home page";
 }
 
 <div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <h1 class="display-4">Patrick Kearns L00186459</h1>
+    <br /><br />
+    <p>The square root of 150 = @(new CalcService().GetSquareRoot(150))</p>
 </div>
