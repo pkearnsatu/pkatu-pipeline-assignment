@@ -53,4 +53,4 @@ jobs:
       run: dotnet test --no-build --verbosity normal
     - uses: actions/checkout@v3
     - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag my-image-name:$(date +%s)
+      run: docker build . --file pkatu-pipeline-assignment/Dockerfile --tag my-image-name:$(date +%s)
