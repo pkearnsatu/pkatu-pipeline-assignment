@@ -52,6 +52,9 @@ jobs:
     - name: Test
       run: dotnet test --no-build --verbosity normal
     - uses: actions/checkout@v3
+  deploy_docker:
+    runs-on: ubuntu-latest
+    steps:
     - name: Build the Docker image    
       run: docker build . --file pkatu-pipeline-assignment/Dockerfile --tag pkatu-pipeline-assignment:mytag
     - name: Run the Docker image
@@ -80,4 +83,4 @@ jobs:
         sudo chmod +x /usr/local/bin/chromedriver
 
     - name: Run Selenium Tests
-      run: selenium-side-runner ./pkatu-pipeline-assignment.side
+      run: selenium-side-runner pkatu-pipeline-assignment.side
