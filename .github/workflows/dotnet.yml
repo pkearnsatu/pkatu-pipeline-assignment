@@ -74,12 +74,15 @@ jobs:
 
     - name: Setup ChromeDriver
       run: |
-        CHROME_VERSION=$(google-chrome --version | cut -d ' ' -f 3 | cut -d '.' -f 1)
+        CHROME_VERSION=$(google-chrome --version | sed -E 's/Google Chrome ([0-9]+).*/\1/')
+        echo "Detected Chrome version: $CHROME_VERSION"
         CHROMEDRIVER_VERSION=$(curl -s "https://chromedriver.storage.googleapis.com/LATEST_RELEASE_$CHROME_VERSION")
-        wget https://chromedriver.storage.googleapis.com/$CHROMEDRIVER_VERSION/chromedriver_linux64.zip
+        echo "Using ChromeDriver version: $CHROMEDRIVER_VERSION"
+        wget "https://chromedriver.storage.googleapis.com/$CHROMEDRIVER_VERSION/chromedriver_linux64.zip"
         unzip chromedriver_linux64.zip
         sudo mv chromedriver /usr/local/bin/
         sudo chmod +x /usr/local/bin/chromedriver
+
 
     - name: List files in the current directory
       run: ls -l ${{ github.workspace }}
