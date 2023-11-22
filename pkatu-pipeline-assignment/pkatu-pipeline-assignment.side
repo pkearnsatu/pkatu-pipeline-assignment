@@ -1,0 +1,32 @@
+{
+  "id": "c76c15b8-d631-4a51-8281-6f768cf8f058",
+  "version": "2.0",
+  "name": "pkatu-pipeline-assignment",
+  "url": "",
+  "tests": [{
+    "id": "3e79fc99-3f37-4296-b4ef-0f131779f40e",
+    "name": "Untitled",
+    "commands": []
+  }, {
+    "id": "72680391-8758-4ba5-ab82-68429fcc51bb",
+    "name": "search for text",
+    "commands": [{
+      "id": "c3e9f6f3-c865-495e-a971-08eac261534b",
+      "comment": "check for square root of 150",
+      "command": "verifyText",
+      "target": "id=selTest",
+      "targets": [],
+      "value": "12.24744871391589"
+    }]
+  }],
+  "suites": [{
+    "id": "fa691630-750c-45b8-9532-4b5673d7a21b",
+    "name": "Default Suite",
+    "persistSession": false,
+    "parallel": false,
+    "timeout": 300,
+    "tests": ["3e79fc99-3f37-4296-b4ef-0f131779f40e"]
+  }],
+  "urls": [],
+  "plugins": []
+}
