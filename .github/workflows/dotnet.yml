@@ -35,7 +35,7 @@ jobs:
           snyk test
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
-  build:
+  build_and_deploy_docker:
 
     runs-on: ubuntu-latest
 
@@ -51,7 +51,7 @@ jobs:
       run: dotnet build --no-restore
     - name: Test
       run: dotnet test --no-build --verbosity normal
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v3 
     - name: Build the Docker image    
       run: docker build . --file pkatu-pipeline-assignment/Dockerfile --tag pkatu-pipeline-assignment:mytag
     - name: Run the Docker image
@@ -78,6 +78,7 @@ jobs:
         unzip chromedriver_linux64.zip
         sudo mv chromedriver /usr/local/bin/
         sudo chmod +x /usr/local/bin/chromedriver
-
+    - name: List files in the current directory
+      run: ls -l ${{ github.workspace }}
     - name: Run Selenium Tests
       run: selenium-side-runner ./pkatu-pipeline-assignment.side
