@@ -80,4 +80,4 @@ jobs:
         sudo chmod +x /usr/local/bin/chromedriver
 
     - name: Run Selenium Tests
-      run: selenium-side-runner ../pkatu-pipeline-assignment.side
+      run: selenium-side-runner ./pkatu-pipeline-assignment.side
