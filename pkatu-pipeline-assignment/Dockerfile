@@ -6,13 +6,12 @@ EXPOSE 80
 EXPOSE 443
 
 FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
-WORKDIR /
-COPY ["pkatu-pipeline-assignment.csproj", "./"]
-RUN dotnet restore "pkatu-pipeline-assignment.csproj"
+WORKDIR /src
+COPY ["pkatu-pipeline-assignment/pkatu-pipeline-assignment.csproj", "pkatu-pipeline-assignment/"]
+RUN dotnet restore "pkatu-pipeline-assignment/pkatu-pipeline-assignment.csproj"
 COPY . .
-RUN dotnet build "pkatu-pipeline-assignment.csproj" -c Release -o /app/build -v normal
-
-
+WORKDIR "/src/pkatu-pipeline-assignment"
+RUN dotnet build "pkatu-pipeline-assignment.csproj" -c Release -o /app/build
 
 FROM build AS publish
 RUN dotnet publish "pkatu-pipeline-assignment.csproj" -c Release -o /app/publish /p:UseAppHost=false
