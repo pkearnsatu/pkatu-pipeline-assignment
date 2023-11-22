@@ -74,10 +74,13 @@ jobs:
 
     - name: Setup ChromeDriver
       run: |
-        wget https://chromedriver.storage.googleapis.com/2.41/chromedriver_linux64.zip
+        CHROME_VERSION=$(google-chrome --version | cut -d ' ' -f 3 | cut -d '.' -f 1)
+        CHROMEDRIVER_VERSION=$(curl -s "https://chromedriver.storage.googleapis.com/LATEST_RELEASE_$CHROME_VERSION")
+        wget https://chromedriver.storage.googleapis.com/$CHROMEDRIVER_VERSION/chromedriver_linux64.zip
         unzip chromedriver_linux64.zip
         sudo mv chromedriver /usr/local/bin/
         sudo chmod +x /usr/local/bin/chromedriver
+
     - name: List files in the current directory
       run: ls -l ${{ github.workspace }}
     - name: Run Selenium Tests
