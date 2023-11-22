@@ -52,5 +52,9 @@ jobs:
     - name: Test
       run: dotnet test --no-build --verbosity normal
     - uses: actions/checkout@v3
-    - name: Build the Docker image
-      run: docker build . --file pkatu-pipeline-assignment/Dockerfile --tag my-image-name:$(date +%s)
+    - name: Build the Docker image    
+      run: docker build . --file pkatu-pipeline-assignment/Dockerfile --tag pkatu-pipeline-assignment:mytag
+    - name: Run the Docker image
+      run: docker run -d -p 8080:80 pkatu-pipeline-assignment:mytag
+    - name: Run Selenium Server
+      run: docker run -d -p 4444:4444 selenium/standalone-chrome:latest
