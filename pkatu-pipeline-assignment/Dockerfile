@@ -11,7 +11,8 @@ COPY ["pkatu-pipeline-assignment.csproj", "./"]
 RUN dotnet restore "pkatu-pipeline-assignment.csproj"
 COPY . .
 WORKDIR "/src/pkatu-pipeline-assignment"
-RUN dotnet build "pkatu-pipeline-assignment.csproj" -c Release -o /app/build
+RUN dotnet build "pkatu-pipeline-assignment.csproj" -c Release -o /app/build -v normal
+
 
 FROM build AS publish
 RUN dotnet publish "pkatu-pipeline-assignment.csproj" -c Release -o /app/publish /p:UseAppHost=false
