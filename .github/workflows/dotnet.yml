@@ -81,4 +81,5 @@ jobs:
     - name: List files in the current directory
       run: ls -l ${{ github.workspace }}
     - name: Run Selenium Tests
-      run: selenium-side-runner ./pkatu-pipeline-assignment.side
+      run: selenium-side-runner ./pkatu-pipeline-assignment/pkatu-pipeline-assignment.side
+
