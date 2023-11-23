@@ -94,9 +94,6 @@ jobs:
         sudo mv chromedriver /usr/local/bin/
         sudo chmod +x /usr/local/bin/chromedriver
 
-    - name: Check containers on the Docker network
-      run: |
-        docker network inspect selenium-network
     
     - name: Get Selenium Server IP
       run: |
@@ -104,6 +101,6 @@ jobs:
         echo "Selenium Server IP: $SELENIUM_IP"
         id: get_selenium_ip
 
-  
     - name: Run Selenium Tests
-      run: selenium-side-runner --server http://SELENIUM_IP:4444/wd/hub --capabilities browserName=chrome,goog:chromeOptions.args=[--headless,--disable-gpu,--window-size=1920x1080] ./pkatu-pipeline-assignment/pkatu-pipeline-assignment.side
+      run: selenium-side-runner --server http://${{ steps.get_selenium_ip.outputs.SELENIUM_IP }}:4444/wd/hub --capabilities browserName=chrome,goog:chromeOptions.args=[--headless,--disable-gpu,--window-size=1920x1080] ./pkatu-pipeline-assignment/pkatu-pipeline-assignment.side
+  
