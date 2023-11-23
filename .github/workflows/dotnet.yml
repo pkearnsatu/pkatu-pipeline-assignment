@@ -91,7 +91,11 @@ jobs:
         sudo mv chromedriver /usr/local/bin/
         sudo chmod +x /usr/local/bin/chromedriver
 
-    
+  selenium_tests:
+    needs: build_and_deploy_docker
+    runs-on: ubuntu-latest
+
+    steps:
 
     - name: Run Selenium Tests
       run: selenium-side-runner --server http://selenium-server:4444/wd/hub --capabilities browserName=chrome,goog:chromeOptions.args=[--headless,--disable-gpu,--window-size=1920x1080] ./pkatu-pipeline-assignment/pkatu-pipeline-assignment.side
