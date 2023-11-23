@@ -72,9 +72,6 @@ jobs:
       run: docker logs selenium-server
     - name: Check containers on the Docker network
       run: |
-        docker run --rm \
-        --network <network-name> \
-        -v /var/run/docker.sock:/var/run/docker.sock \
         docker network inspect selenium-network
         continue-on-error: true
   selenium_tests:
