@@ -94,6 +94,10 @@ jobs:
         sudo mv chromedriver /usr/local/bin/
         sudo chmod +x /usr/local/bin/chromedriver
 
+    - name: Check containers on the Docker network
+      run: |
+        docker network inspect selenium-network
+    
     - name: Get Selenium Server IP
       run: |
         SELENIUM_IP=$(docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' selenium-server)
