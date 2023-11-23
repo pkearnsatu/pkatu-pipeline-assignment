@@ -64,26 +64,19 @@ jobs:
     
     - name: Run Selenium Server
       run: |
+        docker pull selenium/standalone-chrome:latest
         docker run -d --net selenium-network --name selenium-server \
         --health-cmd='curl -f http://localhost:4444/wd/hub/status || exit 1' \
         --health-interval=10s --health-timeout=5s --health-retries=3 \
         selenium/standalone-chrome:latest
+
     - name: Get Selenium Server Logs
       run: docker logs selenium-server
     - name: Check containers on the Docker network
       run: |
         docker network inspect selenium-network
         continue-on-error: true
-  my_job:
-    runs-on: ubuntu-latest
-    services:
-      my-docker-network-name:
-        image: some-docker-image
-        ports:
-          - 1234:5678
-    steps:
-      - name: Check connectivity
-        run: ping selenium-server
+
   selenium_tests:
     needs: build_and_deploy_docker
     runs-on: ubuntu-latest
