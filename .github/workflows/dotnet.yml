@@ -71,9 +71,8 @@ jobs:
     - name: Get Selenium Server Logs
       run: docker logs selenium-server
     - name: Check containers on the Docker network
-      run: |
-        docker network inspect <network-name>
-        continue-on-error: true
+      run: docker network inspect <network-name>
+      continue-on-error: true
   selenium_tests:
     needs: build_and_deploy_docker
     runs-on: ubuntu-latest
