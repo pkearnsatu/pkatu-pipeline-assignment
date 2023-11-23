@@ -40,6 +40,8 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+    - name: Get Selenium Server Logs
+      run: docker logs selenium-server
     - name: Create Docker network
       run: docker network create selenium-network
     - uses: actions/checkout@v3
