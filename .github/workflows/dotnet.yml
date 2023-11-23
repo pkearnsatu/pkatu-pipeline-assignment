@@ -64,7 +64,7 @@ jobs:
     
     - name: Run Selenium Server
       run: |
-        docker run -d --net selenium-network --name 172.18.0.3/16 \
+        docker run -d --net selenium-network --name selenium-server \
         --health-cmd='curl -f http://localhost:4444/wd/hub/status || exit 1' \
         --health-interval=10s --health-timeout=5s --health-retries=3 \
         selenium/standalone-chrome:latest
@@ -100,4 +100,4 @@ jobs:
 
   
     - name: Run Selenium Tests
-      run: selenium-side-runner --server http://172.18.0.3/16:4444/wd/hub --capabilities browserName=chrome,goog:chromeOptions.args=[--headless,--disable-gpu,--window-size=1920x1080] ./pkatu-pipeline-assignment/pkatu-pipeline-assignment.side
+      run: selenium-side-runner --server http://selenium-server:4444/wd/hub --capabilities browserName=chrome,goog:chromeOptions.args=[--headless,--disable-gpu,--window-size=1920x1080] ./pkatu-pipeline-assignment/pkatu-pipeline-assignment.side
