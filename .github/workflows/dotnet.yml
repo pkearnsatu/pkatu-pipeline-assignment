@@ -98,5 +98,5 @@ jobs:
 
 
     - name: Run Selenium Tests
-      run: selenium-side-runner --server http://selenium-server:4444/wd/hub --capabilities browserName=chrome,goog:chromeOptions.args=[--headless,--disable-gpu,--window-size=1920x1080] ./pkatu-pipeline-assignment.side
+      run: selenium-side-runner --server http://selenium-server:4444/wd/hub --capabilities browserName=chrome,goog:chromeOptions.args=[--headless,--disable-gpu,--window-size=1920x1080] /pkatu-pipeline-assignment.side
   
