@@ -63,11 +63,7 @@ jobs:
       run: docker run -d --net selenium-network -p 8080:80 --name myapp pkatu-pipeline-assignment:mytag
     
     
-  selenium_tests:
-    needs: build_and_deploy_docker
-    runs-on: ubuntu-latest
 
-    steps:
 
     - name: Run Selenium Server
       run: |
@@ -82,7 +78,11 @@ jobs:
       uses: actions/setup-node@v2
       with:
         node-version: '14'
+  selenium_tests:
+    needs: build_and_deploy_docker
+    runs-on: ubuntu-latest
 
+    steps:
     - name: Install Selenium Side Runner
       run: npm install -g selenium-side-runner
 
