@@ -74,6 +74,16 @@ jobs:
       run: |
         docker network inspect selenium-network
         continue-on-error: true
+  my_job:
+    runs-on: ubuntu-latest
+    services:
+      my-docker-network-name:
+        image: some-docker-image
+        ports:
+          - 1234:5678
+    steps:
+      - name: Check connectivity
+        run: ping selenium-server
   selenium_tests:
     needs: build_and_deploy_docker
     runs-on: ubuntu-latest
