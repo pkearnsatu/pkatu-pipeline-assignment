@@ -37,14 +37,9 @@ jobs:
 
     - name: Create Docker network
       run: docker network create selenium-network
-
-    - name: View Selenium Server Logs
-      run: docker logs selenium-server
         
     - name: Build the Docker image
       run: docker build -t pkatu-pipeline-assignment:mytag ./pkatu-pipeline-assignment
-
-
     
     - name: Run the Docker image (Application) 
       run: |
