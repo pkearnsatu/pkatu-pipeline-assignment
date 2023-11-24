@@ -38,6 +38,16 @@ jobs:
     - name: Create Docker network
       run: docker network create selenium-network
 
+    - name: Build and deploy to myapp
+      run: |
+         docker build -t pkatu-pipeline-assignment:mytag ./pkatu-pipeline-assignment
+         docker stop myapp || true
+         docker rm myapp || true   
+
+         docker run -d --net selenium-network -p 8080:80 --name myapp pkatu-pipeline-assignment:mytag
+      continue-on-error: true
+  
+
     - name: Check Selenium Server availability
       id: check-selenium
       run: |
