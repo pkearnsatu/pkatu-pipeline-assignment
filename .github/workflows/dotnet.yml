@@ -65,5 +65,5 @@ jobs:
     - name: Run Selenium Tests
       run: |
         cd ./pkatu-pipeline-assignment  
-        npx selenium-side-runner --server http://${SELENIUM_SERVER_IP}:4444/wd/hub --capabilities browserName=chrome,goog:chromeOptions.args=[--headless,--disable-gpu,--window-size=1920x1080] ./pkatu-pipeline-assignment.side
+        npx selenium-side-runner --server http://${SELENIUM_IP}:4444/wd/hub --capabilities browserName=chrome,goog:chromeOptions.args=[--headless,--disable-gpu,--window-size=1920x1080] ./pkatu-pipeline-assignment.side
         needs: check-selenium
