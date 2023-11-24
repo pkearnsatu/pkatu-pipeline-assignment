@@ -43,13 +43,14 @@ jobs:
       run: |
           SELENIUM_IP=""
           while [ -z "$SELENIUM_IP" ]; do
-            SELENIUM_IP=$(docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' selenium-server)
-            if [ -z "$SELENIUM_IP" ]; then
-              echo "Waiting for Selenium server..."
-              sleep 5
-            fi
+          SELENIUM_IP=$(docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' myapp)
+          if [ -z "$SELENIUM_IP" ]; then
+          echo "Waiting for Selenium server..."
+          sleep 5
+          fi
           done
           echo "Selenium server is up and running. IP: $SELENIUM_IP"
+
 
     - name: Run Selenium Tests
       run: | 
