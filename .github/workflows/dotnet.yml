@@ -38,6 +38,14 @@ jobs:
     - name: Create Docker network
       run: docker network create selenium-network
 
+    - name: Check Selenium Server availability
+      run: |
+        until curl -s http://selenium-server:4444/wd/hub/status | grep -q '"ready":true'; do
+        echo "Waiting for Selenium server..."
+        sleep 5
+        done
+        echo "Selenium server is up and running."
+        
     - name: Build the Docker image
       run: docker build -t pkatu-pipeline-assignment:mytag ./pkatu-pipeline-assignment
 
