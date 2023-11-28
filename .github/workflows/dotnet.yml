@@ -38,6 +38,13 @@ jobs:
     - name: Create Docker network
       run: docker network create selenium-network
 
+
+    - name: Start Selenium Server
+      run: |
+        docker pull selenium/standalone-chrome:latest
+        docker run -d --net selenium-network --name selenium-server -p 4444:4444 selenium/standalone-chrome:latest
+
+    
     - name: Build and deploy to myapp
       run: |
          docker build -t pkatu-pipeline-assignment:mytag ./pkatu-pipeline-assignment
@@ -60,6 +67,16 @@ jobs:
           fi
           done
           echo "Selenium server is up and running. IP: $SELENIUM_IP"
+
+
+    - name: Run Selenium Tests
+      run: |
+        cd ./pkatu-pipeline-assignment  
+        npx selenium-side-runner --server http://selenium-server:4444/wd/hub --capabilities browserName=chrome,goog:chromeOptions.args=[--headless,--disable-gpu,--window-size=1920x1080] ./pkatu-pipeline-assignment.side
+
+
+
+    
 
     - name: Check Selenium Server availability
       id: check-selenium-server
