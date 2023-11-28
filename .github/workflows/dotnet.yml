@@ -77,12 +77,21 @@ jobs:
         docker network inspect selenium-network
 
 
+    - name: Check Selenium Server Status
+      run: |
+        SELENIUM_SERVER_IP=172.18.0.2
+        SELENIUM_PORT=4444
+        until $(curl --output /dev/null --silent --head --fail http://$SELENIUM_SERVER_IP:$SELENIUM_PORT/wd/hub/status); do
+        printf '.'
+        sleep 5
+        done
+        echo "Selenium server is ready."
 
 
     - name: Run Selenium Tests
       run: |
         cd ./pkatu-pipeline-assignment  
-        npx selenium-side-runner --server http://selenium-server:4444/wd/hub --capabilities browserName=chrome,goog:chromeOptions.args=[--headless,--disable-gpu,--window-size=1920x1080] ./pkatu-pipeline-assignment.side
+        npx selenium-side-runner --server http://172.18.0.2:4444/wd/hub --capabilities browserName=chrome,goog:chromeOptions.args=[--headless,--disable-gpu,--window-size=1920x1080] ./pkatu-pipeline-assignment.side
 
 
 
