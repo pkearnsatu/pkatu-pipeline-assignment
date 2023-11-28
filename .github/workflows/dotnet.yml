@@ -69,6 +69,16 @@ jobs:
           echo "Selenium server is up and running. IP: $SELENIUM_IP"
 
 
+
+
+    - name: List Docker containers and network info
+      run: |
+        docker ps
+        docker network inspect selenium-network
+
+
+
+
     - name: Run Selenium Tests
       run: |
         cd ./pkatu-pipeline-assignment  
