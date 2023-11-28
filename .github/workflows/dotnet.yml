@@ -41,8 +41,8 @@ jobs:
 
     - name: Start Selenium Server
       run: |
-        docker pull selenium/standalone-chrome:latest
-        docker run -d --net selenium-network --name selenium-server -p 4444:4444 selenium/standalone-chrome:latest
+        docker pull selenium/standalone-chrome:119.0
+        docker run -d --net selenium-network --name selenium-server -p 4444:4444 selenium/standalone-chrome:119.0
 
     
     - name: Build and deploy to myapp
