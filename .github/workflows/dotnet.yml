@@ -61,9 +61,36 @@ jobs:
           done
           echo "Selenium server is up and running. IP: $SELENIUM_IP"
 
+    - name: Check Selenium Server availability
+      id: check-selenium-server
+      run: |
+        SELENIUM_IP=$(docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' myapp)
+        if [ -z "$SELENIUM_IP" ]; then
+          echo "Selenium server container not found"
+          exit 1
+        fi
+        echo "Found Selenium server at IP: $SELENIUM_IP"
+
+        SELENIUM_PORT=4444
+        SELENIUM_READY=false
+
+        while [ "$SELENIUM_READY" = false ]; do
+          echo "Checking if Selenium server is ready..."
+          SELENIUM_STATUS=$(curl -s "http://$SELENIUM_IP:$SELENIUM_PORT/wd/hub/status" | grep -o '"ready":true' || true)
+
+          if [ "$SELENIUM_STATUS" = '"ready":true' ]; then
+            SELENIUM_READY=true
+            echo "Selenium server is ready."
+          else
+            echo "Waiting for Selenium server..."
+            sleep 5
+          fi
+        done
+
+        
 
     - name: Run Selenium Tests
       run: |
         cd ./pkatu-pipeline-assignment  
-        npx selenium-side-runner --server http:/127.0.0.1:4444/wd/hub --capabilities browserName=chrome,goog:chromeOptions.args=[--headless,--disable-gpu,--window-size=1920x1080] ./pkatu-pipeline-assignment.side
+        npx selenium-side-runner --server http:/172.18.0.2:4444/wd/hub --capabilities browserName=chrome,goog:chromeOptions.args=[--headless,--disable-gpu,--window-size=1920x1080] ./pkatu-pipeline-assignment.side
         needs: check-selenium
