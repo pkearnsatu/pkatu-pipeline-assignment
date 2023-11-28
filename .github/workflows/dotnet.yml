@@ -76,6 +76,8 @@ jobs:
         docker ps
         docker network inspect selenium-network
 
+    - name: Display Selenium Server Logs
+      run: docker logs selenium-server
 
     - name: Check Selenium Server Status
       run: |
