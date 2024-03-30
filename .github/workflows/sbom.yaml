@@ -14,11 +14,6 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: Set up Node.js (if your project is Node.js based)
-        uses: actions/setup-node@v3
-        with:
-          node-version: '16'
-
       - name: Install Snyk CLI
         run: npm install -g snyk
 
