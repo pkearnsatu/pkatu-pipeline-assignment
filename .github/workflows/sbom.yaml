@@ -17,6 +17,9 @@ jobs:
       - name: Display the current working directory
         run: pwd
 
+      - name: List contents of the project directory
+        run: ls -la
+
         working-directory: pkatu-pipeline-assignment
 
 
