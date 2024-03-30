@@ -17,8 +17,9 @@ jobs:
       - name: Install Snyk CLI
         run: npm install -g snyk
 
-      - name: Generate SBOM
-        run: snyk iac describe --kind=k8s --output=./sbom-output/sbom.spdx
+      - name: Run Snyk security scan and generate SBOM
+        run: |
+          snyk test --all-projects --sbom-output=sbom.spdx
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
 
