@@ -1,4 +1,4 @@
-name: Snyk Security Scan
+name: Snyk Security Scan and SBOM Generation
 
 on:
   push:
@@ -7,7 +7,7 @@ on:
     branches: [ main ]
 
 jobs:
-  snyk-scan:
+  snyk-scan-and-sbom-generation:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -21,10 +21,24 @@ jobs:
       - name: Install Snyk CLI
         run: npm install -g snyk
 
-      - name: Snyk security scan
-        run: snyk test --all-projects
+      - name: Snyk authentication
+        run: snyk auth ${{ secrets.SNYK_TOKEN }}
 
-      - name: Generate SBOM
-        run: snyk iac describe --kind k8s --output=sbom.spdx
+      - name: Run Snyk security scan
+        run: snyk test --all-projects
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+
+      - name: Create SBOM output directory
+        run: mkdir -p ./sbom-output
+
+      - name: Generate SBOM
+        run: snyk iac describe --kind=k8s --output=./sbom-output/sbom.spdx
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+
+      - name: Upload SBOM as an Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: sbom
+          path: ./sbom-output/sbom.spdx
