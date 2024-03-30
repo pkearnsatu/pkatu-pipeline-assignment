@@ -14,15 +14,6 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: Display the current working directory
-        run: pwd
-
-      - name: List contents of the project directory
-        run: ls -la
-
-        working-directory: pkatu-pipeline-assignment
-
-
       - name: Install Snyk CLI
         run: npm install -g snyk
 
@@ -30,18 +21,14 @@ jobs:
         run: snyk test --all-projects
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
-        # Set working directory only if the .csproj file is not in the root of the repo
-        working-directory: pkatu-pipeline-assignment
 
       - name: Generate SBOM
         run: snyk iac describe --kind=k8s --output=./sbom-output/sbom.spdx
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
-        # Adjust this if your .csproj is in the nested folder
-        working-directory: pkatu-pipeline-assignment
 
       - name: Upload SBOM as an Artifact
         uses: actions/upload-artifact@v3
         with:
           name: sbom
-          path: pkatu-pipeline-assignment/sbom-output/sbom.spdx
+          path: ./sbom-output/sbom.spdx
