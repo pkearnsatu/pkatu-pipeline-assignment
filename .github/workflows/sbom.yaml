@@ -11,11 +11,11 @@ jobs:
   snyk-scan-and-sbom-generation:
     runs-on: ubuntu-latest
     steps:
-      - name: List contents of pkatu-pipeline-assignment
-        run: ls -la
-        working-directory: pkatu-pipeline-assignment
       - name: Checkout repository
         uses: actions/checkout@v3
+
+      - name: Debugging: List directory contents
+        run: ls -la
 
       - name: Install Snyk CLI
         run: npm install -g snyk
@@ -24,12 +24,14 @@ jobs:
         run: snyk test --all-projects
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+        # Set working directory only if the .csproj file is not in the root of the repo
         working-directory: pkatu-pipeline-assignment
 
       - name: Generate SBOM
         run: snyk iac describe --kind=k8s --output=./sbom-output/sbom.spdx
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+        # Adjust this if your .csproj is in the nested folder
         working-directory: pkatu-pipeline-assignment
 
       - name: Upload SBOM as an Artifact
