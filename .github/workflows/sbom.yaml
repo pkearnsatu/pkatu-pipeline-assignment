@@ -28,10 +28,6 @@ jobs:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
         working-directory: pkatu-pipeline-assignment
 
-      - name: Create SBOM output directory
-        run: mkdir -p ./sbom-output
-        working-directory: pkatu-pipeline-assignment
-
       - name: Generate SBOM
         run: snyk iac describe --kind=k8s --output=./sbom-output/sbom.spdx
         env:
