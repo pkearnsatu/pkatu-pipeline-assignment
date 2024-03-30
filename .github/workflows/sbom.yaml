@@ -5,7 +5,7 @@ on:
     branches: [ main ]
   pull_request:
     branches: [ main ]
-  workflow_dispatch:  # This line enables manual triggering
+  workflow_dispatch:
 
 jobs:
   snyk-scan-and-sbom-generation:
@@ -22,24 +22,27 @@ jobs:
       - name: Install Snyk CLI
         run: npm install -g snyk
 
-      - name: Snyk authentication
-        run: snyk auth ${{ secrets.SNYK_TOKEN }}
+      - name: Change to the project directory
+        run: cd pkatu-pipeline-assignment
 
       - name: Run Snyk security scan
         run: snyk test --all-projects
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+        working-directory: pkatu-pipeline-assignment
 
       - name: Create SBOM output directory
         run: mkdir -p ./sbom-output
+        working-directory: pkatu-pipeline-assignment
 
       - name: Generate SBOM
         run: snyk iac describe --kind=k8s --output=./sbom-output/sbom.spdx
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+        working-directory: pkatu-pipeline-assignment
 
       - name: Upload SBOM as an Artifact
         uses: actions/upload-artifact@v3
         with:
           name: sbom
-          path: ./sbom-output/sbom.spdx
+          path: pkatu-pipeline-assignment/sbom-output/sbom.spdx
