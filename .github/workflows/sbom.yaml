@@ -11,6 +11,9 @@ jobs:
   snyk-scan-and-sbom-generation:
     runs-on: ubuntu-latest
     steps:
+      - name: List contents of pkatu-pipeline-assignment
+        run: ls -la
+        working-directory: pkatu-pipeline-assignment
       - name: Checkout repository
         uses: actions/checkout@v3
 
