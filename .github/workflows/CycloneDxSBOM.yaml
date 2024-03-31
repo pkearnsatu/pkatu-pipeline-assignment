@@ -23,22 +23,19 @@ jobs:
           dotnet-version: '6.0.x'
 
       - name: Restore dependencies
-        run: dotnet restore
+        run: dotnet restore ${{ github.workspace }}/pkatu-pipeline-assignment/YourProject.csproj
 
       - name: Build the project
-        run: dotnet build --no-restore
+        run: dotnet build ${{ github.workspace }}/pkatu-pipeline-assignment/YourProject.csproj --no-restore
 
       - name: Install CycloneDX .NET tool
         run: dotnet tool install --global CycloneDX
 
-      - name: Show directory structure
-        run: ls -laR
-
       - name: Generate CycloneDX BOM
-        run: dotnet-CycloneDX ./ --output sbom.xml
+        run: dotnet-CycloneDX ${{ github.workspace }}/pkatu-pipeline-assignment/YourProject.csproj --output ${{ github.workspace }}/pkatu-pipeline-assignment/sbom.xml
 
       - name: Upload SBOM as Artifact
         uses: actions/upload-artifact@v2
         with:
           name: cyclonedx-bom
-          path: sbom.xml
+          path: ${{ github.workspace }}/pkatu-pipeline-assignment/sbom.xml
