@@ -35,7 +35,7 @@ jobs:
         run: ls -la ~/.dotnet/tools
 
       - name: Generate CycloneDX BOM
-        run: ~/.dotnet/tools/cyclonedx dotnet --output sbom.xml
+        run: dotnet-CycloneDX dotnet --output sbom.xml
 
       - name: Upload SBOM as Artifact
         uses: actions/upload-artifact@v2
