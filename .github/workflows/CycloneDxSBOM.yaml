@@ -31,6 +31,9 @@ jobs:
       - name: Install CycloneDX .NET tool
         run: dotnet tool install --global CycloneDX
 
+      - name: Add CycloneDX to PATH
+        run: echo "$HOME/.dotnet/tools" >> $GITHUB_PATH
+
       - name: Generate CycloneDX BOM
         run: cyclonedx dotnet --output sbom.xml
 
