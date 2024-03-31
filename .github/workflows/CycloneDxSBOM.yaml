@@ -31,11 +31,11 @@ jobs:
       - name: Install CycloneDX .NET tool
         run: dotnet tool install --global CycloneDX
 
-      - name: Verify CycloneDX installation
-        run: ls -la ~/.dotnet/tools
+      - name: Show directory structure
+        run: ls -laR
 
       - name: Generate CycloneDX BOM
-        run: dotnet-CycloneDX dotnet --output sbom.xml
+        run: dotnet-CycloneDX --input ./ --output sbom.xml
 
       - name: Upload SBOM as Artifact
         uses: actions/upload-artifact@v2
