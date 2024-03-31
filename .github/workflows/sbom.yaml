@@ -19,9 +19,12 @@ jobs:
 
       - name: Run Snyk security scan and generate SBOM
         run: |
+         dotnet restore ./pkatu-pipeline-assignment/pkatu-pipeline-assignment.csproj
+         dotnet build ./pkatu-pipeline-assignment/pkatu-pipeline-assignment.csproj
          snyk test --file=./pkatu-pipeline-assignment/pkatu-pipeline-assignment.csproj --sbom-output=sbom.spdx
         env:
          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+
 
 
 
