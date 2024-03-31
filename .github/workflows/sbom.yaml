@@ -12,7 +12,7 @@ jobs:
   security_scan:
     name: Security Scan
     runs-on: ubuntu-latest
-
+ 
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v2
