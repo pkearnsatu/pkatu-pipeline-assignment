@@ -30,7 +30,7 @@ jobs:
         run: unzip dependency-check.zip
 
       - name: Run OWASP Dependency-Check Scan
-        run: ./dependency-check/bin/dependency-check.sh --scan ./pkatu-pipeline-assignment/pkatu-pipeline-assignment --out . --format ALL
+        run: ./dependency-check/bin/dependency-check.sh --scan /github/workspace/pkatu-pipeline-assignment --out . --format ALL
 
       - name: Upload SBOM as Artifact
         uses: actions/upload-artifact@v2
