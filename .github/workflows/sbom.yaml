@@ -19,9 +19,10 @@ jobs:
 
       - name: Run Snyk security scan and generate SBOM
         run: |
-         snyk test ./pkatu-pipeline-assignment/pkatu-pipeline-assignment.csproj --sbom-output=sbom.spdx
+         snyk test --file=./pkatu-pipeline-assignment/pkatu-pipeline-assignment.csproj --sbom-output=sbom.spdx
         env:
          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+
 
 
       - name: Upload SBOM as an Artifact
