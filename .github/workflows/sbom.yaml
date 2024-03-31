@@ -1,0 +1,36 @@
+name: Snyk Security Scan and SBOM Generation
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  snyk-scan-and-sbom-generation:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Install Snyk CLI
+        run: npm install -g snyk
+
+      - name: Run Snyk security scan and generate SBOM
+        run: |
+         dotnet restore ./pkatu-pipeline-assignment/pkatu-pipeline-assignment.csproj
+         dotnet build ./pkatu-pipeline-assignment/pkatu-pipeline-assignment.csproj
+         dotnet snyk test --file=./pkatu-pipeline-assignment/pkatu-pipeline-assignment.csproj --sbom-output=sbom.spdx
+
+        env:
+         SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+
+
+
+
+      - name: Upload SBOM as an Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: sbom
+          path: ./sbom-output/sbom.spdx
