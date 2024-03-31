@@ -1,0 +1,36 @@
+name: Generate SBOM with CycloneDX for .NET
+
+on: 
+  push:
+  workflow_dispatch:
+
+jobs:
+  sbom-generation:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v2
+        with:
+          dotnet-version: '6.0.x'
+
+      - name: Restore dependencies
+        run: dotnet restore
+
+      - name: Build the project
+        run: dotnet build --no-restore
+
+      - name: Install CycloneDX .NET tool
+        run: dotnet tool install --global CycloneDX
+
+      - name: Generate CycloneDX BOM
+        run: cyclonedx dotnet --output sbom.xml
+
+      - name: Upload SBOM as Artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: cyclonedx-bom
+          path: sbom.xml
