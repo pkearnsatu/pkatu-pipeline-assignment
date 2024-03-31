@@ -22,9 +22,8 @@ jobs:
          dotnet restore ./pkatu-pipeline-assignment/pkatu-pipeline-assignment.csproj
          dotnet build ./pkatu-pipeline-assignment/pkatu-pipeline-assignment.csproj
          dotnet snyk test --file=./pkatu-pipeline-assignment/pkatu-pipeline-assignment.csproj --sbom-output=sbom.spdx
-
         env:
-         SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
 
 
 
