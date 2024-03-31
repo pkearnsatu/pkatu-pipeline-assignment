@@ -19,7 +19,7 @@ jobs:
 
       - name: Run Snyk security scan and generate SBOM
         run: |
-         cd ../pkatu-pipeline-assignment
+         cd ./pkatu-pipeline-assignment
          snyk test --all-projects --sbom-output=sbom.spdx
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
