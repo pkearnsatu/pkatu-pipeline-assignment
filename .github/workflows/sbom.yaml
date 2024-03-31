@@ -21,7 +21,8 @@ jobs:
         run: |
          dotnet restore ./pkatu-pipeline-assignment/pkatu-pipeline-assignment.csproj
          dotnet build ./pkatu-pipeline-assignment/pkatu-pipeline-assignment.csproj
-          snyk test --file=./pkatu-pipeline-assignment/pkatu-pipeline-assignment.csproj --package-manager=nuget --sbom-output=sbom.spdx
+          snyk test --file=./pkatu-pipeline-assignment/pkatu-pipeline-assignment.csproj --language=dotnet --sbom-output=sbom.spdx
+
         env:
          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
 
